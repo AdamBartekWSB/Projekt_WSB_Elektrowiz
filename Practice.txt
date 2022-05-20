@@ -1,1 +1,2 @@
 Sprawdzam czy działa przesyłanie przez Githuba
+Ponowne sprawdzenie github
