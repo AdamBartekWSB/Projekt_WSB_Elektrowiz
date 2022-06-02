@@ -22,6 +22,10 @@ class UserMenagement():
         driver = self.driver
         driver.find_element(By.LINK_TEXT, UserMenagement.Administration).click()
 
+    def users_page(self):
+        driver = self.driver
+        driver.find_element(By.XPATH, UserMenagement.Users).click()
+
 
 
 
