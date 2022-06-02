@@ -30,6 +30,9 @@ class UserMenagement():
     NewUserActivation = "user_active"
     NewUserStatus = "user_status"
     SaveBtn = "submit"
+    NewUserMsg = "//div[@class='message_box' and text()='Konto zostało stworzone']"
+    CloseBtn = "//td//button[text()='Zamknij']"
+    NewUserLogin = "//table[@id='user_list']//td[text()='" + Variables.newusrLogin + "']"
 
     def log_in(self):
         driver = self.driver
@@ -60,8 +63,19 @@ class UserMenagement():
         user_status_select = Select(driver.find_element(By.ID, UserMenagement.NewUserStatus))
         user_status_select.select_by_visible_text(Variables.usrstatus)
         driver.find_element(By.ID, UserMenagement.SaveBtn).click()
+        sleep(2)
 
-    sleep(2)
+    def check_new_user_msg(self):
+        driver = self.driver
+        new_user_msg = driver.find_element(By.XPATH, UserMenagement.NewUserMsg)
+        self.assertEqual("Konto zostało stworzone", new_user_msg.text, "There is no message about adding a user")
+
+        driver.find_element(By.XPATH, UserMenagement.CloseBtn).click()
+
+    def check_new_user(self):
+        driver = self.driver
+        new_user_check = driver.find_element(By.XPATH, UserMenagement.NewUserLogin)
+        self.assertEqual(Variables.newusrLogin, new_user_check.text, "There is no new user")
 
 
 

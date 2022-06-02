@@ -17,6 +17,9 @@ class MyTest(unittest.TestCase):
         UserMenagement.users_page(self)
         UserMenagement.create_new_user(self)
 
+        UserMenagement.check_new_user_msg(self)
+        UserMenagement.check_new_user(self)
+
 
     def tearDown(self):
         self.driver.quit()
