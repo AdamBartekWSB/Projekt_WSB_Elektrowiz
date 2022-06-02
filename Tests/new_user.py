@@ -13,6 +13,7 @@ class MyTest(unittest.TestCase):
     def testCreateNewUser(self):
 
         UserMenagement.log_in(self)
+        UserMenagement.administration_page(self)
 
 
     def tearDown(self):
