@@ -20,6 +20,8 @@ class MyTest(unittest.TestCase):
         UserMenagement.check_new_user_msg(self)
         UserMenagement.check_new_user(self)
 
+        UserMenagement.delete_user(self)
+
 
     def tearDown(self):
         self.driver.quit()

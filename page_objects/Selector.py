@@ -33,6 +33,7 @@ class UserMenagement():
     NewUserMsg = "//div[@class='message_box' and text()='Konto zostało stworzone']"
     CloseBtn = "//td//button[text()='Zamknij']"
     NewUserLogin = "//table[@id='user_list']//td[text()='" + Variables.newusrLogin + "']"
+    DeleteBtn = "//tr/td[text()='" + Variables.newusrLogin + "']/following-sibling::td/img[@src='images/delete.png']"
 
     def log_in(self):
         driver = self.driver
@@ -76,6 +77,10 @@ class UserMenagement():
         driver = self.driver
         new_user_check = driver.find_element(By.XPATH, UserMenagement.NewUserLogin)
         self.assertEqual(Variables.newusrLogin, new_user_check.text, "There is no new user")
+
+    def delete_user(self):
+        driver = self.driver
+        driver.find_element(By.XPATH, UserMenagement.DeleteBtn).click()
 
 
 
