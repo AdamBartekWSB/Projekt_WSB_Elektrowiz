@@ -1,6 +1,6 @@
 from selenium import webdriver
 import unittest
-
+from page_objects.Selector import UserMenagement
 
 class MyTest(unittest.TestCase):
     def setUp(self):
@@ -11,6 +11,8 @@ class MyTest(unittest.TestCase):
 
 
     def testCreateNewUser(self):
+
+        UserMenagement.log_in(self)
 
 
     def tearDown(self):
