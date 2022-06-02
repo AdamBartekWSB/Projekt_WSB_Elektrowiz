@@ -15,6 +15,7 @@ class MyTest(unittest.TestCase):
         UserMenagement.log_in(self)
         UserMenagement.administration_page(self)
         UserMenagement.users_page(self)
+        UserMenagement.create_new_user(self)
 
 
     def tearDown(self):
