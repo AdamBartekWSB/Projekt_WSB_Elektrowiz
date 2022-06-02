@@ -34,6 +34,7 @@ class UserMenagement():
     CloseBtn = "//td//button[text()='Zamknij']"
     NewUserLogin = "//table[@id='user_list']//td[text()='" + Variables.newusrLogin + "']"
     DeleteBtn = "//tr/td[text()='" + Variables.newusrLogin + "']/following-sibling::td/img[@src='images/delete.png']"
+    DeleteUserMsg = "//div[@class='message_box' and text()='Konto użytkownika zostało usunięte.']"
 
     def log_in(self):
         driver = self.driver
@@ -81,6 +82,17 @@ class UserMenagement():
     def delete_user(self):
         driver = self.driver
         driver.find_element(By.XPATH, UserMenagement.DeleteBtn).click()
+
+    def check_del_user_msg(self):
+        driver = self.driver
+        new_user_delete_msg = driver.find_element(By.XPATH, UserMenagement.DeleteUserMsg)
+        self.assertEqual("Konto użytkownika zostało usunięte.", new_user_delete_msg.text, "There is no message about user deletion")
+
+    def check_del_user(self):
+        driver = self.driver
+        bodyText = driver.find_element(By.TAG_NAME, "body")
+        self.assertFalse(Variables.newusrLogin in bodyText.text)
+
 
 
 

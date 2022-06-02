@@ -9,7 +9,6 @@ class MyTest(unittest.TestCase):
         self.driver.maximize_window()
         self.driver.implicitly_wait(10)
 
-
     def testCreateNewUser(self):
 
         UserMenagement.log_in(self)
@@ -22,6 +21,8 @@ class MyTest(unittest.TestCase):
 
         UserMenagement.delete_user(self)
 
+        UserMenagement.check_del_user_msg(self)
+        UserMenagement.check_del_user(self)
 
     def tearDown(self):
         self.driver.quit()
