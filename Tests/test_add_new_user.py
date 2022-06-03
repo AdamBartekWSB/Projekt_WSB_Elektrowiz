@@ -1,6 +1,6 @@
 from selenium import webdriver
 import unittest
-from page_objects.Selector import UserMenagement
+from page_objects.administration_page import UserMenagement
 
 class MyTest(unittest.TestCase):
     def setUp(self):
