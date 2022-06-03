@@ -35,6 +35,7 @@ class UserMenagement():
     newuserlogin = "//table[@id='user_list']//td[text()='" + Variables.newusrlogin + "']"
     deletebtn = "//tr/td[text()='" + Variables.newusrlogin + "']/following-sibling::td/img[@src='images/delete.png']"
     deleteusermsg = "//div[@class='message_box' and text()='Konto użytkownika zostało usunięte.']"
+    userslist = "user_list"
 
     def log_in(self):
         driver = self.driver
@@ -89,5 +90,5 @@ class UserMenagement():
 
     def check_del_user(self):
         driver = self.driver
-        bodyText = driver.find_element(By.TAG_NAME, "body")
+        bodyText = driver.find_element(By.ID, UserMenagement.userslist)
         self.assertFalse(Variables.newusrlogin in bodyText.text)
