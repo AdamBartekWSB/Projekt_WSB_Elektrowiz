@@ -5,89 +5,89 @@ from time import sleep
 class Variables():
     usrlogin = "achybicki"
     usrpasswd = "qwertyuiop"
-    newusrLogin = "jkowalski"
-    newusrPsswd = "1234abcd"
-    newusrName = "Jan"
-    newuserLastname = "Kowalski"
-    newusrEmail = "jkowalski@test.com"
+    newusrlogin = "jkowalski"
+    newusrpsswd = "1234abcd"
+    newusrname = "Jan"
+    newuserlastname = "Kowalski"
+    newusremail = "jkowalski@test.com"
     company = "Niedzica"
     usractive = "TAK"
     usrstatus = "zweryfikowane"
 
 class UserMenagement():
-    Login = "login"
-    Password = "password"
-    LoginBTN = "Login"
-    Administration = "Panel administracyjny"
-    Users = "//a[@href='users.php']"
-    NewUserAddBtn = "//img[@data-target='#user_add']"
-    NewUserLoginInput = "user_login"
-    NewUserPasswdInput = "user_password"
-    NewUserNameInput = "user_name"
-    NewUserLastNameInput = "user_lastname"
-    NewUserCompanySelect = "user_affiliation"
-    NewUserEmail = "user_email"
-    NewUserActivation = "user_active"
-    NewUserStatus = "user_status"
-    SaveBtn = "submit"
-    NewUserMsg = "//div[@class='message_box' and text()='Konto zostało stworzone']"
-    CloseBtn = "//td//button[text()='Zamknij']"
-    NewUserLogin = "//table[@id='user_list']//td[text()='" + Variables.newusrLogin + "']"
-    DeleteBtn = "//tr/td[text()='" + Variables.newusrLogin + "']/following-sibling::td/img[@src='images/delete.png']"
-    DeleteUserMsg = "//div[@class='message_box' and text()='Konto użytkownika zostało usunięte.']"
+    login = "login"
+    password = "password"
+    login_btn = "Login"
+    administration = "Panel administracyjny"
+    users = "//a[@href='users.php']"
+    newuseraddbtn = "//img[@data-target='#user_add']"
+    newuserlogininput = "user_login"
+    newuserpasswdinput = "user_password"
+    newusernameinput = "user_name"
+    newuserlastnameinput = "user_lastname"
+    newusercompanyselect = "user_affiliation"
+    newuseremail = "user_email"
+    newuseractivation = "user_active"
+    newuserstatus = "user_status"
+    savebtn = "submit"
+    newusermsg = "//div[@class='message_box' and text()='Konto zostało stworzone']"
+    closebtn = "//td//button[text()='Zamknij']"
+    newuserlogin = "//table[@id='user_list']//td[text()='" + Variables.newusrlogin + "']"
+    deletebtn = "//tr/td[text()='" + Variables.newusrlogin + "']/following-sibling::td/img[@src='images/delete.png']"
+    deleteusermsg = "//div[@class='message_box' and text()='Konto użytkownika zostało usunięte.']"
 
     def log_in(self):
         driver = self.driver
-        driver.find_element(By.NAME, UserMenagement.Login).send_keys(Variables.usrlogin)
-        driver.find_element(By.ID, UserMenagement.Password).send_keys(Variables.usrpasswd)
-        driver.find_element(By.NAME, UserMenagement.LoginBTN).click()
+        driver.find_element(By.NAME, UserMenagement.login).send_keys(Variables.usrlogin)
+        driver.find_element(By.ID, UserMenagement.password).send_keys(Variables.usrpasswd)
+        driver.find_element(By.NAME, UserMenagement.login_btn).click()
 
     def administration_page(self):
         driver = self.driver
-        driver.find_element(By.LINK_TEXT, UserMenagement.Administration).click()
+        driver.find_element(By.LINK_TEXT, UserMenagement.administration).click()
 
     def users_page(self):
         driver = self.driver
-        driver.find_element(By.XPATH, UserMenagement.Users).click()
+        driver.find_element(By.XPATH, UserMenagement.users).click()
 
     def create_new_user(self):
         driver = self.driver
-        driver.find_element(By.XPATH, UserMenagement.NewUserAddBtn).click()
-        driver.find_element(By.ID, UserMenagement.NewUserLoginInput).send_keys(Variables.newusrLogin)
-        driver.find_element(By.ID, UserMenagement.NewUserPasswdInput).send_keys(Variables.newusrPsswd)
-        driver.find_element(By.ID, UserMenagement.NewUserNameInput).send_keys(Variables.newusrName)
-        driver.find_element(By.ID, UserMenagement.NewUserLastNameInput).send_keys(Variables.newuserLastname)
-        company_select = Select(driver.find_element(By.ID, UserMenagement.NewUserCompanySelect))
+        driver.find_element(By.XPATH, UserMenagement.newuseraddbtn).click()
+        driver.find_element(By.ID, UserMenagement.newuserlogininput).send_keys(Variables.newusrlogin)
+        driver.find_element(By.ID, UserMenagement.newuserpasswdinput).send_keys(Variables.newusrpsswd)
+        driver.find_element(By.ID, UserMenagement.newusernameinput).send_keys(Variables.newusrname)
+        driver.find_element(By.ID, UserMenagement.newuserlastnameinput).send_keys(Variables.newuserlastname)
+        company_select = Select(driver.find_element(By.ID, UserMenagement.newusercompanyselect))
         company_select.select_by_visible_text(Variables.company)
-        driver.find_element(By.ID, UserMenagement.NewUserEmail).send_keys(Variables.newusrEmail)
-        user_active_select = Select(driver.find_element(By.ID, UserMenagement.NewUserActivation))
+        driver.find_element(By.ID, UserMenagement.newuseremail).send_keys(Variables.newusremail)
+        user_active_select = Select(driver.find_element(By.ID, UserMenagement.newuseractivation))
         user_active_select.select_by_visible_text(Variables.usractive)
-        user_status_select = Select(driver.find_element(By.ID, UserMenagement.NewUserStatus))
+        user_status_select = Select(driver.find_element(By.ID, UserMenagement.newuserstatus))
         user_status_select.select_by_visible_text(Variables.usrstatus)
-        driver.find_element(By.ID, UserMenagement.SaveBtn).click()
+        driver.find_element(By.ID, UserMenagement.savebtn).click()
 
     def check_new_user_msg(self):
         driver = self.driver
-        new_user_msg = driver.find_element(By.XPATH, UserMenagement.NewUserMsg)
+        new_user_msg = driver.find_element(By.XPATH, UserMenagement.newusermsg)
         self.assertEqual("Konto zostało stworzone", new_user_msg.text, "There is no message about adding a user")
 
-        driver.find_element(By.XPATH, UserMenagement.CloseBtn).click()
+        driver.find_element(By.XPATH, UserMenagement.closebtn).click()
 
     def check_new_user(self):
         driver = self.driver
-        new_user_check = driver.find_element(By.XPATH, UserMenagement.NewUserLogin)
-        self.assertEqual(Variables.newusrLogin, new_user_check.text, "There is no new user")
+        new_user_check = driver.find_element(By.XPATH, UserMenagement.newuserlogin)
+        self.assertEqual(Variables.newusrlogin, new_user_check.text, "There is no new user")
 
     def delete_user(self):
         driver = self.driver
-        driver.find_element(By.XPATH, UserMenagement.DeleteBtn).click()
+        driver.find_element(By.XPATH, UserMenagement.deletebtn).click()
 
     def check_del_user_msg(self):
         driver = self.driver
-        new_user_delete_msg = driver.find_element(By.XPATH, UserMenagement.DeleteUserMsg)
+        new_user_delete_msg = driver.find_element(By.XPATH, UserMenagement.deleteusermsg)
         self.assertEqual("Konto użytkownika zostało usunięte.", new_user_delete_msg.text, "There is no message about user deletion")
 
     def check_del_user(self):
         driver = self.driver
         bodyText = driver.find_element(By.TAG_NAME, "body")
-        self.assertFalse(Variables.newusrLogin in bodyText.text)
+        self.assertFalse(Variables.newusrlogin in bodyText.text)
