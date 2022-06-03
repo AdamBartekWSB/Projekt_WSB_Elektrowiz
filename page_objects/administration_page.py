@@ -65,7 +65,6 @@ class UserMenagement():
         user_status_select = Select(driver.find_element(By.ID, UserMenagement.NewUserStatus))
         user_status_select.select_by_visible_text(Variables.usrstatus)
         driver.find_element(By.ID, UserMenagement.SaveBtn).click()
-        sleep(2)
 
     def check_new_user_msg(self):
         driver = self.driver
@@ -92,11 +91,3 @@ class UserMenagement():
         driver = self.driver
         bodyText = driver.find_element(By.TAG_NAME, "body")
         self.assertFalse(Variables.newusrLogin in bodyText.text)
-
-
-
-
-
-
-
-
