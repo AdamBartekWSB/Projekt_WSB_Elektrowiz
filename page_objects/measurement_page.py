@@ -100,7 +100,7 @@ class Measurement():
         driver.find_element(By.ID, Measurement.Password).send_keys(Login.usrpasswd)
         driver.find_element(By.NAME, Measurement.LoginBTN).click()
 
-    def create_powerstation(self):
+    def create_powerstation(self):  # Adding new powerstation called by variable powerstation_name for testing purpose
         driver = self.driver
         driver.implicitly_wait(2)
         driver.get("http://www.elektrowiz.pl/measurements.php?s=powerstation_add")
@@ -114,7 +114,7 @@ class Measurement():
         driver.find_element(By.ID, Measurement.powerstation_phone).send_keys(Variables.powerstation_phone)
         driver.find_element(By.ID, Measurement.powerstation_add_form_btn).click()
 
-    def pre_check_powerstation(self):
+    def pre_check_powerstation(self):   # Preliminary check in case of existing powerstation (calling method delete_powerstation for clearing the environment)
         driver = self.driver
         driver.get("http://www.elektrowiz.pl/measurements.php?s=powerstation_add")
         powerstation_table = driver.find_element(By.XPATH, Measurement.powerstation_table)
@@ -128,3 +128,10 @@ class Measurement():
             print(
                 "Nie znaleziono elektrowni: " + Variables.powerstation_name + " w bazie danych. \nMożna bezpiecznie kontynuować dodawanie nowej elektrowni testowej...")
 
+    def check_powerstation(self):   # Check after creating new powerstation to be sure that added to the database
+        driver = self.driver
+        driver.get("http://www.elektrowiz.pl/measurements.php?s=powerstation_add")
+        powerstation_table = driver.find_element(By.XPATH, Measurement.powerstation_table)
+        powerstation_existing = Variables.powerstation_name in powerstation_table.text
+        if powerstation_existing is True:
+            print("Została dodana elektrownia: " + Variables.powerstation_name)
