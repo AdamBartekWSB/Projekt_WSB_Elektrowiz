@@ -114,3 +114,17 @@ class Measurement():
         driver.find_element(By.ID, Measurement.powerstation_phone).send_keys(Variables.powerstation_phone)
         driver.find_element(By.ID, Measurement.powerstation_add_form_btn).click()
 
+    def pre_check_powerstation(self):
+        driver = self.driver
+        driver.get("http://www.elektrowiz.pl/measurements.php?s=powerstation_add")
+        powerstation_table = driver.find_element(By.XPATH, Measurement.powerstation_table)
+        powerstation_existing = Variables.powerstation_name in powerstation_table.text
+        if powerstation_existing is True:
+            print(
+                "Na liście znajduje się już elektrownia o nazwie: " + Variables.powerstation_name + "\nPrzystępuję do jej usunięcia...")
+            Measurement.delete_powerstation(self)
+            print("Elektrownia " + Variables.powerstation_name + " została usunięta. Przechodzę do testu")
+        else:
+            print(
+                "Nie znaleziono elektrowni: " + Variables.powerstation_name + " w bazie danych. \nMożna bezpiecznie kontynuować dodawanie nowej elektrowni testowej...")
+
