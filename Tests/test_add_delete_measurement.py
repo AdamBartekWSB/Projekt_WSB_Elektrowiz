@@ -9,8 +9,7 @@ class MyTest(unittest.TestCase):
         self.driver = webdriver.Chrome()
         self.driver.get("http://www.elektrowiz.pl/")
         self.driver.maximize_window()
-        self.driver.implicitly_wait(10)
-
+        self.driver.implicitly_wait(5)
 
     def test01_CreatePowerStation(self):
         Measurement.log_in(self)
