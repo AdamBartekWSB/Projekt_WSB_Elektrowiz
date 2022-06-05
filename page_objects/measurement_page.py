@@ -1,9 +1,9 @@
 #Selectors, variables and methods needed for testing Measurement page (from Left sidebar)-> test_add_delete_measurement.py
 from selenium.webdriver.common.by import By
 from page_objects.Credentials import Login
-
-
-
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.action_chains import ActionChains
+from time import sleep
 
 class Variables():
     # POWERSTATION FORM VARIABLES
@@ -136,7 +136,7 @@ class Measurement():
         if powerstation_existing is True:
             print("Została dodana elektrownia: " + Variables.powerstation_name)
 
-    def check_powerstation_after_cleaning(self):
+    def check_powerstation_after_cleaning(self):    # For checking self-cleaning feature at the end of automation test
         driver = self.driver
         driver.get("http://www.elektrowiz.pl/measurements.php?s=powerstation_add")
         powerstation_table = driver.find_element(By.XPATH, Measurement.powerstation_table)
@@ -145,10 +145,42 @@ class Measurement():
             print(
                 "Przypadek testowy związany z elektrownią: " + Variables.powerstation_name + " został wykonany, a testowane obiekty usunięte z bazy danych.")
 
-    def delete_powerstation(self):
+    def delete_powerstation(self):  # For self-cleaning purposes of the automation test
         driver = self.driver
         driver.get("http://www.elektrowiz.pl/measurements.php?s=powerstation_add")
         powerstation_list = driver.find_element(By.XPATH, Measurement.powerstation_list_check)
         powerstation_visible = powerstation_list.is_displayed()
         if powerstation_visible is True:
             driver.find_element(By.XPATH, Measurement.powerstation_list_number_testgen).click()
+
+    def create_generator(self): # Adding new generator called by variable generator_name for testing purpose
+        driver = self.driver
+        driver.find_element(By.LINK_TEXT, Measurement.measurement_page_main).click()
+        driver.find_element(By.LINK_TEXT, Measurement.generator_page).click()
+        powerstation_select = Select(driver.find_element(By.ID, Measurement.powerstation_select))
+        powerstation_select.select_by_visible_text(Variables.powerstation_name)
+        driver.find_element(By.XPATH, Measurement.generator_add_btn).click()
+        # Filling in new generator form
+        driver.find_element(By.ID, Measurement.generator_name).send_keys(Variables.generator_name)
+        driver.find_element(By.ID, Measurement.generator_manufacturer).send_keys(Variables.generator_manufacturer)
+        driver.find_element(By.ID, Measurement.generator_type).send_keys(Variables.generator_type)
+        driver.find_element(By.ID, Measurement.generator_serialno).send_keys(Variables.generator_serialno)
+        driver.find_element(By.ID, Measurement.generator_year).send_keys(Variables.generator_year)
+        driver.find_element(By.ID, Measurement.generator_rated_voltage).send_keys(Variables.generator_rated_voltage)
+        driver.find_element(By.ID, Measurement.generator_rated_current).send_keys(Variables.generator_rated_current)
+        driver.find_element(By.ID, Measurement.generator_rated_excitation_voltage).send_keys(Variables.generator_rated_excitation_voltage)
+        driver.find_element(By.ID, Measurement.generator_rated_excitation_current).send_keys(Variables.generator_rated_excitation_current)
+        driver.find_element(By.ID, Measurement.generator_insulation).send_keys(Variables.generator_insulation)
+        driver.find_element(By.ID, Measurement.generator_power_apparent).send_keys(Variables.generator_power_apparent)
+        driver.find_element(By.ID, Measurement.generator_power_real).send_keys(Variables.generator_power_real)
+        driver.find_element(By.ID, Measurement.generator_power_reactive).send_keys(Variables.generator_power_reactive)
+        driver.find_element(By.ID, Measurement.generator_cos).send_keys(Variables.generator_cos)
+        driver.find_element(By.ID, Measurement.generator_speed).send_keys(Variables.generator_speed)
+        driver.find_element(By.ID, Measurement.generator_cooling).send_keys(Variables.generator_cooling)
+        # Problem z pseudo klasami ::before i ::after. Poza tym na stronie są dwa takie same ID wpisane w takich samych klasach css
+        generator_add_form_btn = driver.find_element(By.XPATH, Measurement.generator_add_form_submit)
+        action = ActionChains(driver)
+        action.click(on_element=generator_add_form_btn)
+        action.perform()
+        #  Mogę skorzystać również z JavaScript Executer
+        # driver.execute_script("arguments[0].click();", generator_add_form_btn)
