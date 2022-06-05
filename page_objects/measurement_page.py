@@ -99,3 +99,18 @@ class Measurement():
         driver.find_element(By.NAME, Measurement.Login).send_keys(Login.usrlogin)
         driver.find_element(By.ID, Measurement.Password).send_keys(Login.usrpasswd)
         driver.find_element(By.NAME, Measurement.LoginBTN).click()
+
+    def create_powerstation(self):
+        driver = self.driver
+        driver.implicitly_wait(2)
+        driver.get("http://www.elektrowiz.pl/measurements.php?s=powerstation_add")
+        driver.find_element(By.XPATH, Measurement.powerstation_add_btn).click()
+        driver.find_element(By.ID, Measurement.powerstation_name).send_keys(Variables.powerstation_name)
+        driver.find_element(By.ID, Measurement.powerstation_street).send_keys(Variables.powerstation_street)
+        driver.find_element(By.ID, Measurement.powerstation_street_number).send_keys(Variables.powerstation_street_number)
+        driver.find_element(By.ID, Measurement.powerstation_building_number).send_keys(Variables.powerstation_building_number)
+        driver.find_element(By.ID, Measurement.powerstation_zip_code).send_keys(Variables.powerstation_zip_code)
+        driver.find_element(By.ID, Measurement.powerstation_city).send_keys(Variables.powerstation_city)
+        driver.find_element(By.ID, Measurement.powerstation_phone).send_keys(Variables.powerstation_phone)
+        driver.find_element(By.ID, Measurement.powerstation_add_form_btn).click()
+
