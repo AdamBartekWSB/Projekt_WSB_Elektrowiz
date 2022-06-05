@@ -194,7 +194,7 @@ class Measurement():
         generator_table = driver.find_element(By.ID, Measurement.generator_table)
         self.assertTrue(Variables.generator_name in generator_table.text)
 
-    def delete_generator(self):
+    def delete_generator(self): #  For self-cleaning purposes of the automation test
         driver = self.driver
         driver.get("http://www.elektrowiz.pl/measurements.php?s=generator_add")
         powerstation_select = Select(driver.find_element(By.ID, Measurement.powerstation_select))
