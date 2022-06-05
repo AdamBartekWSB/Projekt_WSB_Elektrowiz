@@ -135,3 +135,20 @@ class Measurement():
         powerstation_existing = Variables.powerstation_name in powerstation_table.text
         if powerstation_existing is True:
             print("Została dodana elektrownia: " + Variables.powerstation_name)
+
+    def check_powerstation_after_cleaning(self):
+        driver = self.driver
+        driver.get("http://www.elektrowiz.pl/measurements.php?s=powerstation_add")
+        powerstation_table = driver.find_element(By.XPATH, Measurement.powerstation_table)
+        powerstation_existing = Variables.powerstation_name in powerstation_table.text
+        if powerstation_existing is False:
+            print(
+                "Przypadek testowy związany z elektrownią: " + Variables.powerstation_name + " został wykonany, a testowane obiekty usunięte z bazy danych.")
+
+    def delete_powerstation(self):
+        driver = self.driver
+        driver.get("http://www.elektrowiz.pl/measurements.php?s=powerstation_add")
+        powerstation_list = driver.find_element(By.XPATH, Measurement.powerstation_list_check)
+        powerstation_visible = powerstation_list.is_displayed()
+        if powerstation_visible is True:
+            driver.find_element(By.XPATH, Measurement.powerstation_list_number_testgen).click()
