@@ -204,7 +204,7 @@ class Measurement():
         if generator_existing is True:
             driver.find_element(By.XPATH, Measurement.generator_list_number_testgen).click()
 
-    def create_measurement(self):
+    def create_measurement(self):   # Adding new measurement called by variable generator_name for testing purpose
         driver = self.driver
         driver.get("http://www.elektrowiz.pl/measurements.php?s=measurement_add")
         powerstation_select = Select(driver.find_element(By.XPATH, Measurement.measurement_select_powerstation_form))
