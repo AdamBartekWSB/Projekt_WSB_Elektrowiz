@@ -1,8 +1,9 @@
 #Selectors, variables and methods needed for testing Measurement page (from Left sidebar)-> test_add_delete_measurement.py
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.select import Select
-from time import sleep
-from selenium.webdriver.common.action_chains import ActionChains
+from page_objects.Credentials import Login
+
+
+
 
 class Variables():
     # POWERSTATION FORM VARIABLES
@@ -83,7 +84,6 @@ class Measurement():
     powerstation_add_form_btn = "submit"
     generator_add_form_btn = "submit"
     generator_add_form_submit = "//form[@id='generator_add_form']//input[@id='submit']"
-
     # Find by XPATH
     powerstation_add_btn = "//img[@data-target='#powerstation_add']"
     powerstation_table = '//div[@id="measurement_right"]'
@@ -94,3 +94,8 @@ class Measurement():
     generator_list_number_testgen = "//table[@id='table_generator_list']//td[text()='" + Variables.generator_name + "']/following-sibling::td[3]/img"
     measurement_list_number_testgen = "//table[@id='measurement_table']//td[text()='" + Variables.measurement_date + "']/following-sibling::td[3]/img"
 
+    def log_in(self):
+        driver = self.driver
+        driver.find_element(By.NAME, Measurement.Login).send_keys(Login.usrlogin)
+        driver.find_element(By.ID, Measurement.Password).send_keys(Login.usrpasswd)
+        driver.find_element(By.NAME, Measurement.LoginBTN).click()
