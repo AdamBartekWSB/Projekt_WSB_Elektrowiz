@@ -185,7 +185,7 @@ class Measurement():
         #  Mogę skorzystać również z JavaScript Executer
         # driver.execute_script("arguments[0].click();", generator_add_form_btn)
 
-    def check_generator(self):
+    def check_generator(self):  # Check after creating new generator to be sure that added to the database
         driver = self.driver
         driver.get("http://www.elektrowiz.pl/measurements.php?s=generator_add")
         driver.implicitly_wait(2)
@@ -193,3 +193,14 @@ class Measurement():
         powerstation_select.select_by_visible_text(Variables.powerstation_name)
         generator_table = driver.find_element(By.ID, Measurement.generator_table)
         self.assertTrue(Variables.generator_name in generator_table.text)
+
+    def delete_generator(self):
+        driver = self.driver
+        driver.get("http://www.elektrowiz.pl/measurements.php?s=generator_add")
+        powerstation_select = Select(driver.find_element(By.ID, Measurement.powerstation_select))
+        powerstation_select.select_by_visible_text(Variables.powerstation_name)
+        generator_list = driver.find_element(By.ID, Measurement.generator_table)
+        generator_existing = Variables.generator_name in generator_list.text
+        if generator_existing is True:
+            driver.find_element(By.XPATH, Measurement.generator_list_number_testgen).click()
+
